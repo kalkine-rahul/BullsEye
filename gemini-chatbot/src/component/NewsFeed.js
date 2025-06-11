@@ -56,9 +56,10 @@ const NewsFeed = () => {
         height={100}
         unoptimized={true}
       />
-      <h2 className="text-2xl font-bold mb-6 ml-1 text-white ">
-          Latest Market News
-      </h2>
+      <h2 className="text-2xl font-bold mb-6 ml-1 text-black dark:text-white">
+  Latest Market News
+</h2>
+
     </div>
      
 

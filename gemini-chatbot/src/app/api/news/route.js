@@ -7,8 +7,9 @@ export async function GET(req) {
       status: 400,
     });
   }
+   const apiKey = process.env.NEXT_NEWS_API_KEY;
 
-  const url = `https://newsapi.org/v2/everything?q=${query}&language=en&apiKey=46beb5125c344e21bf2e437e439543ca`;
+  const url = `https://newsapi.org/v2/everything?q=${query}&language=en&apiKey=${apiKey}`;
 
   try {
     const res = await fetch(url);

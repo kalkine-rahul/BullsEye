@@ -66,7 +66,7 @@ export default function NewsSentimentPage() {
             >
               {article.title || "No title"}
             </a>
-            <p className="text-sm text-white mb-2">{article.description || "No description"}</p>
+            <p className="text-sm text-white dark:text-black mb-2">{article.description || "No description"}</p>
             <button
               onClick={() => {
                 setSelectedText(article.title);

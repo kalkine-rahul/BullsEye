@@ -1,20 +1,12 @@
-import { Geist, Geist_Mono } from "next/font/google";
+// app/layout.js
+
 import "./globals.css";
 import Footer from "@/component/Footer";
 import Megamenu from "@/component/Megamenu";
 import ClientLayoutWrapper from "@/component/ClientLayoutWrapper";
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata = {
   title: "BullsEye",
@@ -27,23 +19,39 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const initialThemeScript = `
+    (function() {
+      try {
+        const theme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (theme === 'dark' || (!theme && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      } catch (_) {}
+    })();
+  `;
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: initialThemeScript }} />
+         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Loopple/loopple-public-assets@main/motion-tailwind/motion-tailwind.css"/>
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className="antialiased bg-white text-black dark:bg-gray-950 dark:text-white"
       >
         <Megamenu />
         <ClientLayoutWrapper>
           {children}
-            <SpeedInsights />
+          <SpeedInsights />
         </ClientLayoutWrapper>
-        <Footer />
        
+         <Footer />
+        
       </body>
-       {/* Screener always visible */}
-       
-
     </html>
   );
 }
+
